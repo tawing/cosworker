@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -24,41 +24,46 @@ class LoginController extends Controller
 
     public function verify (Request $request)
     {
-        $usern = trim($request->input('username'));
-        $passw = trim($request->input('password'));
-
-        $credentials = $request->validate([
+        $validator = Validator::make($request->all(), [
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'required|string',
         ]);
 
-        $checkdb = DB::table('users')
-        ->where('username', $usern)
-        ->where('deactivate', 0)
-        ->first();
-        
-        //dd($usern);
-        
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
-        if ($checkdb && Hash::check($passw, $checkdb->password))
-        {
-            
+        $credentials = ['username' => $request->username, 'password' => $request->password];
+
+        if(Auth::attempt($credentials)){
+
             $checkuser = DB::table('users')     // original
                 ->join('positions', 'users.position_id', '=', 'positions.position_id')
-                ->where('users.username', $usern)
+                ->where('users.username', $request->username)
                 ->select('users.users_id', 'users.firstname', 'users.lastname', 'positions.position_name as position_name', 'users.usertype_id')
                 ->first();
-          
-             Session::put('user', $checkuser);
-            if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-                return redirect()->intended('home');
-            }
+
+            // $active = DB::table('users')
+            //     ->where('users.username', $request->username)
+            //     ->where('deactivate', 0)
+            //     ->first();
+
+            // $inactive = DB::table('users')
+            //     ->where('users.username', $request->username)
+            //     ->where('deactivate', 1)
+            //     ->first();
+            // $count = DB::table('employees')
+            //     ->where('employees.users_id', $checkuser->users_id)
+            //     ->count();
+            
+            Session::put('user', $checkuser);
+            $request->session()->regenerate();
+            return view('home')->with('user', $checkuser);
         }
-        //dd($checkdb->password);
-        //return redirect()->intended('home');
-        return back()->withErrors(['username'=>'Invalid credentials']);
-      
+
+        return back()->withErrors([
+            'username' => 'The provided credentials do not match our records.',
+        ]);
     }
     public function signOut() {
         Session::flush();
