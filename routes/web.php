@@ -47,7 +47,7 @@ Route::post('/profile/update-password', [App\Http\Controllers\AccountController:
 // Route::get('/recent-activity/{filter?}', [App\Http\Controllers\SampleController::class, 'index'])->name('recent-activity');
 
 Route::get('/userperm', [App\Http\Controllers\UserPermController::class, 'index']);
-Route::get('/hood', [App\Http\Controllers\LanceController::class, 'index']);
+// Route::get('/hood', [App\Http\Controllers\LanceController::class, 'index']);
 
 // Projects
 Route::get('/projects', [App\Http\Controllers\ProjectsController::class, 'index']);
@@ -127,14 +127,14 @@ Route::post('/usersandperm/clearactivate/{id}', [App\Http\Controllers\UserPermCo
 Route::get('/try', function () {
     return view('try');
 });
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
