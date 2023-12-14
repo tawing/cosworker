@@ -178,7 +178,7 @@
                                  <div class="ps-3">
                                     
                                     <a href="{{url('/list/active')}}">
-                                       <h6>{{ $active[0]->count }}</h6>
+                                       <h6>{{ $activeCount}}</h6>
                                     </a>
                                  </div>
                               </div>
@@ -196,7 +196,7 @@
                                  </div>
                                  <div class="ps-3">
                                     <a href="{{url('/list/inactive')}}">
-                                       <h6>{{ $inactive[0]->count }}</h6>
+                                       <h6>{{ $inactiveCount }}</h6>
                                     </a>
                                  </div>
                               </div>
@@ -214,7 +214,7 @@
                                  </div>
                                  <div class="ps-3">
                                     <a href="{{url('/employee')}}">
-                                       <h6>{{ $count[0]->count }}</h6>
+                                       <h6>{{ $totalCount }}</h6>
                                     </a>
                                  </div>
                               </div>
@@ -250,7 +250,7 @@
                                  </div>
                                  <div class="ps-3">
                                     <a href="{{url('/blacklist_log')}}">
-                                       <h6>{{ $blacklist[0]->count }}</h6>
+                                       <h6>{{ $blacklistCount }}</h6>
                                     </a>
                                  </div>
                               </div>
@@ -276,7 +276,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                 @foreach($pendings as $pending)
+                                 @foreach($pending as $pendings)
                                     <tr>
                                        <th>{{ $pending->pending_id }}</th>
                                        <td>{{ $pending->date }}</td>
