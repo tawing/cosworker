@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('firstname');
             $table->string('middlename');
-            $table->foreignId('position_id');
-            $table->foreignId('usertype_id');
+            $table->foreignId('position_id')->constrained('positions', 'position_id');
+            $table->foreignId('usertype_id')->constrained('usertypes', 'usertype_id');
             $table->rememberToken();
             $table->timestamps();
         });
