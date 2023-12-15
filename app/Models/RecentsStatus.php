@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserType extends Model
+class RecentsStatus extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'usertype_name',
+        'action'
     ];
-    
-    protected $primaryKey = 'usertype_id';
+
+    protected $primaryKey = 'recstats_id';
 
     public $timestamps = false;
 }
