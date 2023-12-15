@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pendings', function (Blueprint $table) {
-            $table->id();
+            $table->id('penstatus_id');
+            $table->foreignId('users_id')->constrained('users', 'users_id');
+            $table->foreignId('employee_id')->constrained('employees', 'employee_id');
+            $table->date('date');
+            $table->string('training', 50);
+            $table->integer('mandays');
+            $table->date('startdate1');
+            $table->date('enddate1');
+            $table->date('startdate2');
+            $table->date('enddate2');
             $table->timestamps();
         });
     }

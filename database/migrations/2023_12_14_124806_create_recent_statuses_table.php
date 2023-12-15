@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recent_status', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('recents_status', function (Blueprint $table) {
+            $table->id('recstats_id');
+            $table->string('action');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recent_status');
+        Schema::dropIfExists('recents_status');
     }
 };

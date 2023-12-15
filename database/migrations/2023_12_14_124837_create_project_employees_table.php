@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_employee', function (Blueprint $table) {
-            $table->id('employee_id');
-            $table->int('blacklist', 1);
+            $table->foreignId('employee_id')->constrained('employees', 'employee_id');
+            $table->integer('blacklist', 1);
             $table->string('remarks', 20);
             $table->foreignId('project_id')->constrained('projects', 'project_id');
             $table->timestamps();

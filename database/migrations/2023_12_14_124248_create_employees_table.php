@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id('employee_id');
-            $table->foreign('educ_id')->constrained('educations', 'educ_id');
+            $table->foreignId('educ_id')->constrained('education', 'educ_id');
             $table->string('firstname', 30);
             $table->string('middlename', 30);
             $table->string('lastname', 30);
@@ -21,16 +21,16 @@ return new class extends Migration
             $table->string('educ', 100);
             $table->string('eligibility', 30);
             $table->date('bday');
-            $table->string('sex', 10);
+            $table->string('gender', 20);
             $table->string('address', 100);
             $table->string('contactno', 15);
             $table->string('email', 30);
             $table->string('mstatus', 10);
             $table->string('tinno', 20);
             $table->string('agencyempno', 15);
-            $table->integer('activate', 2);
-            $table->integer('deactivate', 2);
-            $table->int('blacklist', 2);
+            $table->integer('activate');
+            $table->integer('deactivate');
+            $table->integer('blacklist');
             $table->string('name_ext', 10);
             $table->timestamps();
         });
