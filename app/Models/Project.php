@@ -9,9 +9,9 @@ class Project extends Model
 {
     use HasFactory;
 
-    private $fillable = [
+    protected $fillable = [
         'project_name'
     ];
 
-    private $primaryKey = 'project_id';
+    protected $primaryKey = 'project_id';
 }
