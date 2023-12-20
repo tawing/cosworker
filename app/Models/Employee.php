@@ -9,7 +9,7 @@ class Employee extends Model
 {
     use HasFactory;
 
-    private $fillable = [
+    protected $fillable = [
         'firstname',
         'middlename',
         'lastname',
@@ -17,19 +17,20 @@ class Employee extends Model
         'educ_id',
         'educ',
         'eligibility',
-        'bday',
+        'birthdate',
         'gender',
         'address',
-        'contactno',
+        'contact_no',
         'email',
-        'mstatus',
-        'tinno',
-        'agencyempno',
+        'marital_status',
+        'tin_no',
+        'agencyemp_no',
         'activate',
         'deactivate',
         'blacklist',
         'name_ext',
+        'ressuffix'
     ];
 
-    private $primaryKey = 'employee_id';
+    protected $primaryKey = 'employee_id';
 }
