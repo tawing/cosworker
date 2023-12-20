@@ -16,4 +16,7 @@ class UserType extends Model
     protected $primaryKey = 'usertype_id';
 
     public $timestamps = false;
+
+    protected $table = 'usertypes';
+
 }
