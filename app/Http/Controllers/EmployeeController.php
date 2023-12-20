@@ -322,7 +322,9 @@ namespace App\Http\Controllers;
                 "email"=>$email,
                 "eligibility"=>$eligibility,
                 "birthdate"=>$bday,
-                "marital_status"=>$mstatus,            
+                "marital_status"=>$mstatus, 
+                "tin_no"=>$tin,
+                "agencyemp_no"=>$agencyempno,           
             );
 
             DB::table('employees')->insert($employeedata);
@@ -341,8 +343,11 @@ namespace App\Http\Controllers;
                 $currentDateTime, 1, $user->users_id, $getemployeeid->employee_id
             ]);
 
-            return redirect()->route('employee.profile', ['id' => $getemployeeid->employee_id])
+            return redirect()->route('employee')
             ->with('status','Employee added successfully.');
+
+            // return redirect()->route('employee.profile', ['id' => $getemployeeid->employee_id])
+            // ->with('status','Employee added successfully.');
         }
         public function updateemployee(Request $request){
             $request->validate([
