@@ -13,25 +13,25 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id('employee_id');
-            $table->foreignId('educ_id')->constrained('education', 'educ_id');
+            $table->foreignId('educ_id')->constrained('educations', 'educ_id');
             $table->string('firstname', 30);
             $table->string('middlename', 30);
             $table->string('lastname', 30);
-            $table->string('ressuffix', 10);
-            $table->string('educ', 100);
-            $table->string('eligibility', 30);
-            $table->date('bday');
+            $table->string('ressuffix', 10)->nullable();
+            $table->string('educ', 100)->nullable();
+            $table->string('eligibility');
+            $table->date('birthdate');
             $table->string('gender', 20);
             $table->string('address', 100);
-            $table->string('contactno', 15);
-            $table->string('email', 30);
-            $table->string('mstatus', 10);
-            $table->string('tinno', 20);
-            $table->string('agencyempno', 15);
-            $table->integer('activate');
-            $table->integer('deactivate');
-            $table->integer('blacklist');
-            $table->string('name_ext', 10);
+            $table->string('contact_no', 15);
+            $table->string('email');
+            $table->string('marital_status', 10);
+            $table->string('tin_no', 20);
+            $table->string('agencyemp_no', 15);
+            $table->integer('activate')->default(1);
+            $table->integer('deactivate')->default(0);
+            $table->integer('blacklist')->default(0);
+            $table->string('name_ext', 10)->nullable();
             $table->timestamps();
         });
     }
