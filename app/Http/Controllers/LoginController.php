@@ -43,22 +43,46 @@ class LoginController extends Controller
                 ->select('users.users_id', 'users.firstname', 'users.lastname', 'positions.position_name as position_name', 'users.usertype_id')
                 ->first();
 
-            // $active = DB::table('users')
-            //     ->where('users.username', $request->username)
-            //     ->where('deactivate', 0)
-            //     ->first();
+            $activeCount = DB::table('users')
+                ->where('deactivate', 0)
+                ->count();
 
-            // $inactive = DB::table('users')
-            //     ->where('users.username', $request->username)
-            //     ->where('deactivate', 1)
-            //     ->first();
+            $inactiveCount = DB::table('users')
+                ->where('deactivate', 1)
+                ->count();
+
+            $totalCount = DB::table('employees')
+                ->count();
+
+            $totalCert = 0;
+
+            $blacklistCount = DB::table('project_employee')
+                ->where('blacklist', 1)
+                ->count();
+
+            $pending = [];
+
+            $recents = [];
+
             // $count = DB::table('employees')
             //     ->where('employees.users_id', $checkuser->users_id)
             //     ->count();
+
+            //return response()->json([$checkuser, $activeCount, $inactiveCount, $totalCount, $totalCert, $blacklistCount, $pending, $recents]);
             
             Session::put('user', $checkuser);
             $request->session()->regenerate();
-            return view('home')->with('user', $checkuser);
+            
+            return view('home', [
+                'user' => $checkuser,
+                'activeCount' => $activeCount,
+                'inactiveCount' => $inactiveCount,
+                'totalCount' => $totalCount,
+                'totalCert' => $totalCert,
+                'blacklistCount' => $blacklistCount,
+                'pending' => $pending,
+                'recents' => $recents,
+            ]);
         }
 
         return back()->withErrors([

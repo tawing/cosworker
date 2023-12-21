@@ -31,7 +31,7 @@ Route::get('/', [App\Http\Controllers\LoginController::class, 'index']);
 Route::post('/', [App\Http\Controllers\LoginController::class, 'verify'])->name('logins.perform');
 
 // Home | Dashboard
-Route::get('/home', [App\Http\Controllers\SampleController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\SampleController::class, 'index'])->name('home');
 Route::get('/list/active', [App\Http\Controllers\ListController::class, 'activeemp']);
 Route::get('/list/inactive', [App\Http\Controllers\ListController::class, 'inactiveemp']);
 Route::get('/total_cert', [App\Http\Controllers\LogsController::class, 'total_cert']);
@@ -47,7 +47,7 @@ Route::post('/profile/update-password', [App\Http\Controllers\AccountController:
 // Route::get('/recent-activity/{filter?}', [App\Http\Controllers\SampleController::class, 'index'])->name('recent-activity');
 
 Route::get('/userperm', [App\Http\Controllers\UserPermController::class, 'index']);
-Route::get('/hood', [App\Http\Controllers\LanceController::class, 'index']);
+// Route::get('/hood', [App\Http\Controllers\LanceController::class, 'index']);
 
 // Projects
 Route::get('/projects', [App\Http\Controllers\ProjectsController::class, 'index']);
@@ -67,7 +67,7 @@ Route::get('/deactivated', [App\Http\Controllers\DeactivatedController::class, '
 Route::get('/lists/projects', [App\Http\Controllers\ListController::class, 'index']);
 
 //Employees
-Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'views']);
+Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'views'])->name('employee');
 Route::get('/employee/{id}', [App\Http\Controllers\EmployeeController::class, 'profile'])->name('employee.profile');
 Route::get('/employee/project/{projectname}', [App\Http\Controllers\EmployeeController::class, 'findpositions']);
 Route::get('/employee/region/{regionname}', [App\Http\Controllers\EmployeeController::class, 'findprovinces']);
@@ -127,14 +127,14 @@ Route::post('/usersandperm/clearactivate/{id}', [App\Http\Controllers\UserPermCo
 Route::get('/try', function () {
     return view('try');
 });
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
