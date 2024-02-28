@@ -11,7 +11,7 @@ class ProjectsController extends Controller
     public function index()
     { 
         $projects = DB::select('SELECT * FROM projects');
-        $project_positions = DB::select("SELECT * FROM project_positions");
+        $project_positions = DB::select("SELECT * FROM positions");
         $user = Session::get('user');
         return view('/projects', [
             'user' => $user,

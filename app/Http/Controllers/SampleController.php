@@ -47,17 +47,12 @@ class SampleController extends BaseController
 
     public function index(){
         $user = Session::get('user');
-        $count = DB::select('SELECT COUNT(*) as count FROM employees');
-        $active = DB::select('SELECT COUNT(*) as count FROM EMPLOYEES
-        WHERE activate = 1');
-        $inactive = DB::select('SELECT COUNT(*) as count FROM EMPLOYEES
-        WHERE activate = 0');
-        $blacklist = DB::select('SELECT COUNT(DISTINCT employee_id) AS count
-        FROM employees 
-        WHERE employees.blacklist = 1
-        ');
-        $certificate = DB::select('SELECT COUNT(*) as count FROM logs');
-        $totalCert = $blacklist[0]->count + $certificate[0]->count;
+        $count = DB::table('employees')->count();
+        $active = DB::table('employees')->where('activate', 1)->count();
+        $inactive = DB::table('employees')->where('activate', 0)->count();
+        $blacklist = DB::table('employees')->where('blacklist', 1)->distinct()->count('employee_id');
+        $certificate = DB::table('logs')->count();
+        $totalCert = 0;
         $pendings = DB::select('SELECT 
         pendings.*, 
         employees.lastname AS e_last, 
@@ -92,18 +87,15 @@ class SampleController extends BaseController
             ON users.users_id = recents.users_id
         INNER JOIN employees
             ON employees.employee_id = recents.employee_id
-        ORDER BY recents.recent_id DESC;
+        ORDER BY recents.recstats_id DESC;
         ');
 //dd($recents);
         function time_elapsed_string($datetime, $full = false) {
             $now = new DateTime;
             $ago = new DateTime($datetime);
             $diff = $now->diff($ago);
-        
-            $diff->w = floor($diff->d / 7);
-            $diff->d -= $diff->w * 7;
-        
-            $string = array(
+
+            $string = [
                 'y' => 'year',
                 'm' => 'month',
                 'w' => 'week',
@@ -111,16 +103,20 @@ class SampleController extends BaseController
                 'h' => 'hr',
                 'i' => 'min',
                 's' => 'sec',
-            );
-            foreach ($string as $k => &$v) {
-                if ($diff->$k) {
-                    $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            ];
+
+            foreach ($string as $key => &$value) {
+                if ($diff->$key) {
+                    $value = $diff->$key . ' ' . $value . ($diff->$key > 1 ? 's' : '');
                 } else {
-                    unset($string[$k]);
+                    unset($string[$key]);
                 }
             }
-        
-            if (!$full) $string = array_slice($string, 0, 1);
+
+            if (!$full) {
+                $string = array_slice($string, 0, 1);
+            }
+
             return $string ? implode(', ', $string) . ' ' : 'just now';
         }
         
@@ -132,13 +128,13 @@ class SampleController extends BaseController
 
         if($user != NULL){
             return view('/home', [
-                'count' => $count,
-                'active' => $active,
-                'inactive' => $inactive,
-                'blacklist' => $blacklist,
+                'totalCount' => $count,
+                'activeCount' => $active,
+                'inactiveCount' => $inactive,
+                'blacklistCount' => $blacklist,
                 'certificate' => $certificate,
                 'totalCert' => $totalCert,
-                'pendings' => $pendings,
+                'pending' => $pendings,
                 'recents' => $recents,
                 'elapsed' => $elapsed,
                 'user' => $user
