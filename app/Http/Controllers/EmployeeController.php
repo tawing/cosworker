@@ -339,8 +339,11 @@ namespace App\Http\Controllers;
             $employee = (object) $employeedata;
             $currentDateTime = date('Y-m-d H:i:s');
             $user = Session::get('user');
-            $insert = DB::insert('INSERT INTO recents (datetime, recstats_id, users_id, employee_id) VALUES (?, ?, ?, ?)', [
-                $currentDateTime, 1, $user->users_id, $getemployeeid->employee_id
+
+            DB::table('recents')->insert([
+                'datetime' => $currentDateTime,
+                'users_id' => $user->users_id,
+                'employee_id' => $getemployeeid->employee_id
             ]);
 
             return redirect()->route('employee')
